@@ -24,7 +24,7 @@ async function run() {
     await client.connect();
     const database = client.db("travelDelight");
     const toursCollection = database.collection("tours");
-
+    const bookingCollection = database.collection('booking');
     //Get API
     app.get('/tours', async (req, res) => {
       const cursor = toursCollection.find({});
@@ -54,7 +54,15 @@ async function run() {
       const query = { _id: ObjectId(id) };
       const result = await toursCollection.deleteOne(query);
       res.json(result);
+    });
+
+    //Booking API
+    app.post('/bookings', async (req, res) => {
+      const booking = req.body;
+      const result=await bookingCollection.insertOne(booking)
+      res.json(result);
     })
+
   } finally {
   }
 }
