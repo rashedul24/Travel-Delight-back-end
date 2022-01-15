@@ -39,6 +39,13 @@ async function run() {
       res.json(tour);
     })
 
+    //Get Booking API
+    app.get('/bookings', async (req, res) => {
+      const cursor = bookingCollection.find({});
+      const bookings = await cursor.toArray();
+      res.send(bookings)
+    })
+
     //Post API
     app.post("/tours", async (req, res) => {
       const tour = req.body;
@@ -49,10 +56,10 @@ async function run() {
     });
 
     //Delete Unique API
-    app.delete('/tours/:id', async (req, res) => {
+    app.delete('/bookings/:id', async (req, res) => {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
-      const result = await toursCollection.deleteOne(query);
+      const result = await bookingCollection.deleteOne(query);
       res.json(result);
     });
 
