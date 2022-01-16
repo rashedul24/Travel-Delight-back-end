@@ -25,6 +25,7 @@ async function run() {
     const database = client.db("travelDelight");
     const toursCollection = database.collection("tours");
     const bookingCollection = database.collection('booking');
+    const bannerCollection = database.collection('banners');
     //Get API
     app.get('/tours', async (req, res) => {
       const cursor = toursCollection.find({});
@@ -44,6 +45,12 @@ async function run() {
       const cursor = bookingCollection.find({});
       const bookings = await cursor.toArray();
       res.send(bookings)
+    })
+    //Get Banners API
+    app.get('/banners', async (req, res) => {
+      const cursor = bannerCollection.find({});
+      const banners = await cursor.toArray();
+      res.send(banners)
     })
 
     //Post API
